@@ -4,7 +4,7 @@ cur=$(pwd)
 
 # build for MilitaryCardGameFrontend
 cd MilitaryCardGameFrontend
-bun run install
+bun install
 bun run build
 
 # build for MilitaryCardGame
