@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -35,14 +36,13 @@ func main() {
 }
 
 func OpenServer() {
-	_, err := distFs.Open(distDir)
+	distFsStripped, err := fs.Sub(distFs, distDir)
 	if err != nil {
-		log.Panicf("Error open %s: %v\n", distDir, err)
+		log.Panicf("Error stripping embed.FS: %v\n", err)
 	}
 
 	log.Printf("Serving %s on HTTP port: %d\n", distDir, port)
-
-	http.Handle("/", http.FileServer(http.Dir(distDir)))
+	http.Handle("/", http.FileServer(http.FS(distFsStripped)))
 	err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 	if err != nil {
 		log.Panicf("Error starting server: %v\n", err)
