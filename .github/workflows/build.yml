@@ -34,3 +34,4 @@ jobs:
             ${{env.PROJECT_NAME}}_*
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
           generate_release_notes: true
+          token: ${{ secrets.TOKEN }}
