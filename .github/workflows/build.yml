@@ -20,6 +20,14 @@ jobs:
       - name: Build Binary
         run: bash build.sh
 
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v3
+        with:
+          args: -vv --latest -c cocogitto --no-exec --github-repo ${{ github.repository }}
+        env:
+          config: cliff.toml
+          OUTPUT: CHANGELOG.md
+
       - name : upload artifact
         uses: actions/upload-artifact@master
         with:
@@ -34,4 +42,5 @@ jobs:
             ${{env.PROJECT_NAME}}_*
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
           generate_release_notes: true
+          body: ${{ steps.git-cliff.outputs.changelog }}
           token: ${{ secrets.TOKEN }}
