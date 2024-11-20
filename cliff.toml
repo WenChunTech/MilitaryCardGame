@@ -4,10 +4,11 @@
 # Lines starting with "#" are comments.
 # Configuration options are organized into tables and keys.
 # See documentation for more information on available options.
+# https://github.com/WenChunTech/MilitaryCardGame
 
 [remote.github]
-owner = "orhun"
-repo = "git-cliff"
+owner = "WenChunTech"
+repo = "MilitaryCardGame"
 
 [changelog]
 # template for the changelog header
@@ -74,7 +75,7 @@ footer = """
 trim = true
 # postprocessors
 postprocessors = [
-  { pattern = '<REPO>', replace = "https://github.com/orhun/git-cliff" }, # replace repository URL
+  { pattern = '<REPO>', replace = "https://github.com/WenChunTech/MilitaryCardGame" }, # replace repository URL
 ]
 
 [git]
@@ -109,6 +110,7 @@ commit_parsers = [
   { message = "^chore|^ci", group = "<!-- 7 -->⚙️ Miscellaneous Tasks" },
   { body = ".*security", group = "<!-- 8 -->🛡️ Security" },
   { message = "^revert", group = "<!-- 9 -->◀️ Revert" },
+  { message = "^build", group = "<!-- 11 -->🏗️ Build" },
 ]
 # protect breaking changes from being skipped due to matching a skipping commit_parser
 protect_breaking_commits = false
